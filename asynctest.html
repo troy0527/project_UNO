@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    div{
+      width: 100px;
+      height: 100px;
+      
+    }
+    .ori1{
+      background-color: blue;
+      
+    }
+    .ori2{
+      background-color: green;
+      
+    }
+    
+    @keyframes move {
+  100% {
+    transform: translateX(300px);
+  }
+}
+
+@keyframes down {
+  100% {
+    transform: translateY(300px);
+  }
+}
+    
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <button class="start">Start</button>
+  <button class="pause">Pause</button>
+  <div class="ori1"></div>
+  <div class="ori2"></div>
+  <p>0</p>
+
+
+  <script>
+    let startBtn = document.querySelector(".start");
+    let pauseBtn = document.querySelector(".pause");
+    startBtn.setAttribute("disabled","true");
+    pauseBtn.addEventListener("click",pause);
+    let isPause =false
+
+    function evnt(){
+      return new Promise((res)=>{ 
+        let start = function(){
+          pauseBtn.removeAttribute("disabled");
+          startBtn.setAttribute("disabled","true");
+          startBtn.removeEventListener("click",start);
+          isPause=false
+          res()
+        }
+        startBtn.addEventListener("click",start)
+      })
+
+    }
+
+    // function start(){
+    //   isPause=false
+    //   startBtn.setAttribute("disabled","true");
+    //   pauseBtn.removeAttribute("disabled");
+    //   startBtn.removeEventListener("click",start);
+      
+    // }
+    function pause(){
+      isPause = true
+      pauseBtn.setAttribute("disabled","true");
+      startBtn.removeAttribute("disabled");
+    }
+    async function cal(){
+      let count = document.querySelector("p")
+      for(let i=0;i<1000;i++){
+        count.innerText = i
+        await delay(1000);
+        if(isPause){
+          await evnt();
+        } 
+      }
+    }
+    function delay(ms){
+      return new Promise(res => setTimeout(res, ms))
+    }
+    let o1 = document.querySelector(".ori1")
+    let o2 = document.querySelector(".ori2")
+    
+    // function playevent1(){
+    //   o1.animate({ marginLeft: "800px" }, { duration: 5000, queue: false }).finish
+    // }
+    // function playevent2(){
+      
+    //   o2.animate({ marginLeft: "800px" }, { duration: 5000, queue: false })
+    // }
+    let onceAnimationEnd = (el, animation) => {
+      return new Promise(resolve => {
+        const onAnimationEndCb = () => {
+          el.removeEventListener('animationend', onAnimationEndCb);
+          resolve();
+        }
+        el.addEventListener('animationend', onAnimationEndCb)
+        el.style.animation = animation;
+      });
+    }
+    let move1 = async () => {
+  
+  await onceAnimationEnd(o1, 'move 5s forwards');
+}
+let move2 = async () => {
+  
+  await onceAnimationEnd(o2, 'move 3s forwards');
+}
+    //let act1 = new Promise(res=>res(playevent1()))
+    //let act2 = new Promise(res=>res(playevent2()))
+    
+    let move_event = async () => {
+  await move1();
+  await move2();
+  console.log("play ani done")
+}
+console.log("play ani")
+move_event()
+    
+
+  </script>
+</body>
+ 
+</html>

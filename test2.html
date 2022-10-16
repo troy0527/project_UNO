@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="">
+  
+  <style>
+    .model-setting {
+      display: block; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 30; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0,0.4); 
+      
+    }
+
+    /* Modal Content/Box */
+    .model-content-setting {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #fefefe;
+      margin: 5% auto; /* 15% from the top and centered */
+      padding: 30px;
+      border: 8px solid gold;
+      border-radius: 25px;
+      
+      width: 30%; /* Could be more or less, depending on screen size */
+      background-color: peru;
+      box-shadow: 3px 3px 3px;
+    }
+
+    /* The Close Button */
+    .close,.rule,.restart,.exit {
+      cursor: pointer;
+      display: flex;
+      position: relative;
+      justify-content: center;
+      min-width:100px;
+      
+      margin:15px;
+      padding: 10px;
+      font-size: 28px;
+      font-weight: bold;
+      border: 2px solid;
+      border-radius: 15px;
+      box-shadow: 4px 4px 1px 0px;
+      background-color: rgb(113, 61, 9);
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <button id="myBtn">Open Modal</button>
+
+  <!-- The Modal -->
+  <div class="model-setting">
+    <div class="model-content-setting">
+      <div class="close">Resume</div>
+      <div class="rule">Rule</div>
+      <div class="restart">Restart</div>
+      <div class="exit">Exit</div>
+    </div>
+    <div class="model-content-rule"></div>
+  </div>
+  <script>
+
+    // // Get the modal
+    // var modal = document.getElementById("myModal");
+
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("myBtn");
+
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+
+    // // When the user clicks on the button, open the modal
+    // btn.onclick = function() {
+    //   modal.style.display = "block";
+    // }
+
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // }
+
+    // // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    //   }
+    // }
+  </script>
+</body>
+</html>
+
+

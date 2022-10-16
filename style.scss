@@ -1,0 +1,721 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+:root{
+  --card-border-color:wheat;
+  font-size: 10px;
+}
+
+
+body {
+  width: 100vw;
+  height: 100vh;
+  
+  
+
+  
+  .model-menu {
+    display: flex; 
+    position: absolute; 
+    // perspective: 1000px;
+    width: 100vw; 
+    height: 100vh; 
+    background-image: url('uno_menu.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform-style: preserve-3d;
+    
+    
+    .previous{
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      font-size: 500%;
+      bottom:5%;
+      left: 30%;
+      // z-index: 20;
+    }
+    .next{
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      right:30%;
+      font-size: 500%;
+      bottom:5%;
+      // z-index: 20;
+    }
+    .model-content{
+      display: none;
+      position: absolute;
+      width: 90%; 
+      height:80%;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      flex-direction: column;
+      border: 8px solid rgb(199, 172, 22);
+      border-radius: 25px;
+      background-color: peru;
+      box-shadow: 3px 3px 3px;
+      justify-content: center;
+      align-items: center;
+      font-size: xx-large;
+      font-weight: 900;
+      
+      .back-btn{
+        display: flex;
+        cursor: pointer;
+        font-size: large;
+        font-weight: 500;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height:50px;
+        bottom: 5%;
+        transform: translateX(-50%);
+        left: 50%;
+        border: 2px solid;
+        border-radius: 25%;
+        background-color: aqua;
+      }
+    }  
+      
+    
+    .model-content-menu {
+      width: 100vw;
+      height:100vh;
+      
+      position: absolute; 
+      display: flex;
+      transform: translateZ(-150px);
+      justify-content: center;
+      
+      transform-style: preserve-3d;
+      .start,.rule,.menu-setting,.back-home {
+        cursor: pointer;
+        display: flex;
+        position: absolute;
+        bottom:5%;
+        justify-content: center;
+        font-size: 300%;
+        align-items: center;
+        border-radius: 30px;
+        border:3px solid;
+        
+        width: 200px;
+        height: 50px;
+        background-color: green;
+        
+      }
+      div:nth-child(1) { transform: rotateY(  0deg) translateZ(220px); }
+      div:nth-child(2) { transform: rotateY( 90deg) translateZ(220px); }
+      div:nth-child(3) { transform: rotateY( 180deg) translateZ(220px); }
+      div:nth-child(4) { transform: rotateY( 270deg) translateZ(220px); }
+    }
+    
+  }
+
+  .game-board{
+    width: 100vw;
+    height: 100vh;
+    display:none;
+    position: absolute;
+    // perspective: 500px;
+    // perspective-origin: 50% 100%;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    background-image: url("card_table.jpg");
+    background-position: center;
+    background-size:cover;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 1000px;
+    //animation: globalView 20s linear infinite;
+    .box4{
+      transform: rotateZ(-90deg);
+    }
+    .box6{
+      transform:rotateZ(90deg);
+    }
+    
+    .deck{
+      
+      position: relative;
+      width: 33vw;
+      height: 33vh;
+      
+      
+      
+      .selectColor{
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+      
+        
+        position: absolute;
+        width: 100px;
+        height:100px;
+        display: grid;
+        grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+        
+        
+        z-index: 15;
+        
+        .color{
+          justify-content: center;
+          cursor: pointer;
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: row;
+          border: 2px solid wheat;
+          opacity: 0.9;
+          
+
+          transition: transform 0.5s;
+          
+          &:hover{
+            transform:scale(1.2);
+            box-shadow: 0 0 5px 5px gold;
+            z-index: 20;
+          }
+          
+        }
+      }
+
+      .action{
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        opacity:0;
+        display: flex;
+        position: absolute;
+        z-index: 15;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        box-shadow: 0 0 1px 1px gold;
+        background-color: gold;
+        
+        background-position:center;
+        
+        background-repeat: no-repeat;
+        animation: action-shown 1s;
+      }
+      .apply-action{
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        opacity:0;
+        display: flex;
+        position: absolute;
+        z-index: 15;
+        width: 70px;
+        height: 70px;
+        
+        
+        background-position:center;
+        
+        background-repeat: no-repeat;
+        animation: apply-action-shown 1s;
+      }
+      
+      
+      
+      .player-left{
+        
+        transform-style: preserve-3d;
+        display:flex;
+        top:5rem;
+        right:8rem;
+        
+        position: absolute;
+        
+        
+        .card{
+          // width:7rem;
+          // height:10rem;
+          
+          
+          position: relative;
+          .card-front{
+            transform: rotateY(180deg);
+          }
+        }
+        
+      }
+      .player-right{
+        top:5rem;
+        right:8rem;
+        
+        display: flex;
+        transform-style: preserve-3d;
+        position: absolute;
+        
+         ;
+        .card{
+          // width:7rem;
+          // height:10rem;
+          
+          position: relative;
+          .card-front{
+            transform: rotateY(180deg);
+          }
+        }
+        
+      }
+      .player-top{
+        
+        
+        display: inline-flex;
+        transform-style: preserve-3d;
+        
+        //justify-content: center;
+        position: absolute;
+        top:3rem;
+        right:3rem;
+        
+        
+        .card{
+          // width:7rem;
+          // height:10rem;
+          
+          position: relative;
+          
+          .card-front{
+            transform: rotateY(180deg);
+          }
+        }
+      }
+      .player-bot{
+        
+        //justify-content: center;
+        transform-style: preserve-3d;
+        display: inline-flex;
+        position: absolute;
+        top: -1rem;
+        left:6rem;
+        flex-direction: row-reverse;
+        
+        
+        .card{
+          // width:7rem;
+          // height:10rem;
+          cursor: pointer;
+          position: relative;
+          transition: all .5s;
+          &:hover{
+            transform: translateY(-4rem);
+
+          }
+          
+          .card-back{
+            
+            transform: rotateY(180deg);
+          }
+          
+          .card-highlighted{
+            &:hover{
+              animation: highlighted 1s ease-in-out alternate infinite;
+            }
+          }
+          .play-keep-btn {
+            position: absolute;
+            top: 50%;
+            
+            left:60%;
+            
+            .play-btn{
+              cursor: pointer;
+              display: flex;
+              right:100%;
+              position: absolute;
+              top: calc(50% - 20px);
+              width: 120px;
+              height: 40px;
+              font-size: larger;
+              font-weight: 700;
+              font-family: Arial, Helvetica, sans-serif;
+              justify-content: center;
+              align-items: center;
+              border-radius: 60% 0 0 60%;
+              background-image: linear-gradient(-90deg, rgb(151, 200, 17), 70%, rgba(187, 255, 0,0));
+              background-size: cover;
+              transition: all 0.5s;
+              z-index: 10;
+              &:hover{
+                transform: scale(1.5);
+                border: 2px solid;
+                border-radius:50%;
+                background-color: rgb(151, 200, 17);
+                z-index: 20;
+              }
+            }
+            .keep-btn{
+              cursor: pointer;
+              display: flex;
+              left:100%;
+              top: calc(50% - 20px);
+              position: absolute;
+              width: 120px;
+              height: 40px;
+              font-size: larger;
+              font-weight: 700;
+              font-family: Arial, Helvetica, sans-serif;
+              background-image: linear-gradient(90deg, rgb(15, 149, 66), 70%, rgba(0, 255, 98,0));
+              background-size: cover;
+              justify-content: center;
+              align-items: center;
+              transition: all 0.5s;
+              border-radius: 0 60% 60% 0;
+              z-index: 10;
+              &:hover{
+                transform: scale(1.5);
+                border: 2px solid;
+                border-radius:50%;
+                background-color: rgb(15, 149, 66);
+                z-index: 20;
+              }
+            }
+          }
+
+
+        }
+      }
+
+      .discard-pile{
+        width:33vw;
+        height:33vh;
+        display: flex;
+        top:-4rem;
+        justify-content: center;
+        align-items: center;
+        
+        position: absolute;
+        
+        z-index: 1;
+        //transform-style: preserve-3d;
+        .card{ 
+          
+          display: flex;
+          position:absolute;
+          justify-content: center;
+          align-items: center;
+          
+          
+          .card-back{
+            transform: rotateY(180deg);
+          }
+          
+        }
+
+      }
+      // background direction
+      .clockwise{
+        left:calc(50% - 15rem);
+        top:calc(-4rem + calc(50% - 15rem));  
+        position: absolute;
+        display: flex;
+        opacity: 20%;
+        z-index:-30 ;
+        width: 30rem;
+        height: 30rem;
+        justify-content: center;
+        align-items: center;
+        
+        background-image: url('Clockwise_arrow.svg');
+        
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        animation: clockwise-arrow 20s linear infinite;
+        
+      }
+      .counter-clockwise{
+        position: absolute;
+        display: flex;
+        opacity: 20%;
+        z-index:-30 ;
+        width: 35vw;
+        height: 35vh;
+        justify-content: center;
+        align-items: center;
+        background-image: url('Clockwise_arrow.svg');
+        
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: counter-clockwise-arrow 20s linear infinite;
+      }
+      .main-deck{
+        // width: 33vw;
+        // height:33vh;
+        top:20rem;
+        left:15rem;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        transform: rotateX(60deg) rotateZ(-45deg);
+        transform-style: preserve-3d;
+        .card-back{
+          cursor: pointer;
+          
+        }
+        
+      
+      }
+      .p1{
+        left:-10rem;
+        
+        
+      }
+      .p2{
+        transform: rotate(90deg);
+        right:20rem;
+        top: -10rem;
+        
+      }
+      .p3{
+        top:3rem;
+        right:-10rem;
+        
+      }
+      .p4{
+        transform: rotate(-90deg);
+        right:15rem;
+        top:-10rem;
+        
+        
+      }
+      
+      
+      
+      .highlighted{
+        
+        box-shadow: 0 0 1.5rem 1rem rgb(244, 252, 88)
+      }
+      .profile{
+        
+        font-size: large;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+        user-select: none;
+        width: 7rem;
+        height: 9rem;
+        position: absolute;
+        opacity: 0.8;
+        background-image: linear-gradient(45deg, blue, red);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 45%;
+        border: .5rem double gold;
+        box-sizing: content-box;
+        z-index: 30;
+        div{
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:nth-child(1){
+            width:7rem;
+            margin:1rem 0;
+            text-align: center;
+          }
+          &:nth-child(2){
+            display: flex;
+            justify-content: center;
+            margin: 0 1rem 1rem 1rem;
+            width:5rem;
+            height:5rem;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
+    }
+    
+    .setting{
+      cursor:pointer;
+      position: fixed;
+      
+      width: 5rem;
+      height:5rem;
+      
+      top:2rem;
+      right:3rem;
+      background-color: gray;
+      background-image: url("setting.png");
+      background-size: contain;
+      background-position: center;
+      border-radius: 50%;
+      border: .3rem solid brown;
+      &:hover{
+        animation: rotate-360 5s linear infinite;
+      }
+      
+      
+      
+    }
+    .card-front{
+      position: absolute;
+      width:7rem;
+      height:10rem;
+      // width: 70px;
+      // height: 100px;
+      backface-visibility: hidden;
+      
+      background-image: url('UNO_cards_deck.svg');
+      /* background-size: 1400% 900%; original 14x8*/
+      /* move each card x+7.586% y+14% */
+      background-size: 1700% 930%;
+      /* origin=(0.68%,1%) last(99.298%,99%) */
+      background-position: 0.68% 1%;
+      background-repeat: no-repeat;
+      border: .3rem #555555 solid;
+      border-color: var(--card-border-color);
+      border-radius: .5rem;
+      box-shadow: .2rem .2rem .3rem 0rem #000000; 
+    }
+    
+    .card-back{
+      position: absolute;
+      
+      width:7rem;
+      height:10rem;
+      // width: 70px;
+      // height: 100px;
+      backface-visibility: hidden;
+      background-color:black ;
+      background-image: url('UNO_Logo.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: .3rem #555555 solid;
+      border-color: var(--card-border-color);
+      border-radius: .5rem;
+      box-shadow: .2rem .2rem .3rem 0rem #000000; 
+    }
+
+
+  }
+
+  .model-setting {
+    display: none; 
+    position: fixed; 
+    z-index: 30; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0,0.8); 
+    .model-content-setting {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #fefefe;
+      margin: 5% auto; 
+      padding: 30px;
+      border: 8px solid gold;
+      border-radius: 25px;
+      
+      min-width: 50%; 
+      background-color: peru; 
+      box-shadow: 3px 3px 3px;
+      .resume,.restart,.exit {
+        cursor: pointer;
+        display: flex;
+        position: relative;
+        justify-content: center;
+        min-width:100px;
+        
+        margin:15px;
+        padding: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        border: 2px solid;
+        border-radius: 15px;
+        box-shadow: 4px 4px 1px 0px;
+        background-color: rgb(113, 61, 9);
+        &:hover{
+          transform:translateX(4px) translateY(4px);
+          box-shadow: 0 0 0 0;
+        }
+      }
+    }
+    
+    
+  }
+ 
+}
+
+
+
+//Background Animation Keyframes
+@keyframes clockwise-arrow{
+  from{
+    transform:  rotate(0deg) scale(1.5) ;
+    
+  }
+  to{
+    transform:  rotate(360deg) scale(1.5) ;
+    
+  }
+}
+@keyframes counter-clockwise-arrow{
+  from{
+    transform: scaleX(-1)  rotate(0deg) scale(1.5);
+    
+  }
+  to{
+    transform: scaleX(-1)  rotate(360deg) scale(1.5);
+    
+  }
+}
+@keyframes rotate-360{
+  from{
+    transform: rotate(0deg) ;
+    
+  }
+  to{
+    transform: rotate(360deg) ;
+    
+  }
+}
+/////////////////
+//Human Animation Keyframes
+@keyframes highlighted {
+  to{box-shadow: 0 0 1.5rem 1rem rgb(244, 252, 88);}
+}
+//discard-pile Animation Keyframes
+@keyframes action-shown {
+  
+  to{
+    opacity:100%;
+    width:150px;
+    height:150px;
+    box-shadow: 0 0 2rem 2rem gold;}
+}
+@keyframes apply-action-shown {
+  from{
+    transform: translateY(-50px);
+  }
+  to{
+    opacity: 100%;
+
+  }
+}
+
+@keyframes glow {
+  to{box-shadow: 0 0 5rem 5rem rgb(244, 252, 88);}
+}
+

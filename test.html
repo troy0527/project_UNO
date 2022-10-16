@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="">
+  
+  <style>
+    body{
+      transform-style: preserve-3d;
+    }
+    .model-menu {
+      display: flex; 
+      position: relative; 
+      perspective: 1000px;
+      z-index: 10; 
+      left: 0;
+      top: 0;
+      width: 100vw; 
+      height: 100vh; 
+      background-image: url('uno_menu.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* animation: view 30s linear infinite; */
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      /* transform: rotateX(70deg); */
+
+      
+    }
+
+    /* Modal Content/Box */
+    .model-content-menu {
+      width: 100vw;
+      height:100vh;
+      position: absolute; 
+      display: flex;
+      transform: translateZ(-80px);
+      justify-content: center;
+      
+      transform-style: preserve-3d;
+      
+    }
+    @keyframes view {
+      to{
+        transform: rotateY(360deg);
+      }
+    }
+    
+    .start,.rule,.setting,.back-home {
+      cursor: pointer;
+      display: flex;
+      position: absolute;
+      top:50%;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30px;
+      border:3px solid;
+      
+      width: 100px;
+      height: 50px;
+      background-color: green;
+      
+    }
+    .model-content-menu div:nth-child(1) { transform: rotateY(  0deg) translateZ(100px); }
+    .model-content-menu div:nth-child(2) { transform: rotateY( 90deg) translateZ(100px); }
+    .model-content-menu div:nth-child(3) { transform: rotateY( 180deg) translateZ(100px); }
+    .model-content-menu div:nth-child(4) { transform: rotateY( 270deg) translateZ(100px); }
+
+    .model-menu .previous{
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      background-color: aqua;
+      top:80%;
+      right:50%;
+      z-index: 20;
+    }
+    .model-menu .next{
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      left: 50%;
+      top:80%;
+      background-color: rgb(68, 0, 255);
+      z-index: 20;
+    }
+
+  </style>
+</head>
+<body>
+
+  
+
+  
+  <div class="model-menu">
+ 
+    <div class="model-content-menu">
+      <div class="start">Start</div>
+      <div class="rule">Rule</div>
+      <div class="setting">Setting</div>
+      <div class="back-home">Back to Home</div>
+    </div>
+    
+    <div class="previous">Previous</div>
+    <div class="next">Next</div>
+  
+    <div class="model-content-rule">
+      
+    </div>
+
+  </div>
+  
+</body>
+<script>
+    
+    let selectIndex=0
+    let prevButton = document.querySelector(".previous");
+    prevButton.addEventListener( 'mouseover', function() {
+      selectIndex++
+      rotate(selectIndex);
+    });
+    
+
+    let nextButton = document.querySelector(".next");
+    nextButton.addEventListener( 'mouseover', function() {
+      selectIndex--
+      rotate(selectIndex);
+    });
+
+    function rotate(index) {
+      let carousel = document.querySelector(".model-content-menu");
+      let angle = index / carousel.childElementCount*-360
+      carousel.style.transform = `translateZ(-80px) rotateY(${angle}deg)`;
+      carousel.style.transition = "transform 2s"
+        
+      index++
+    }
+    
+  </script>
+</html>
+
+

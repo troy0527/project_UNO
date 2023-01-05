@@ -417,7 +417,7 @@ function menuSetting(){
 }
 
 function backHome(){
-	location.href = "http://www.google.com";
+	location.href = "https://github.com/troy0527/project_UNO";
 }
   
 

@@ -30,8 +30,7 @@ export function cardWebShown(card,deckWeb,append=true){
 		let rotateDeg = Math.floor(Math.random()*360);
 		let moveX = Math.floor(Math.random()*20)-10;
 		let moveY = Math.floor(Math.random()*20)-10;
-		
-		deckWeb.firstElementChild.style.transform = `translateX(${moveX}px) translateY(${moveY}px) rotate(${rotateDeg}deg)`;
+		deckWeb.firstElementChild.style.transform = `translateX(${moveX/10}rem) translateY(${moveY/10}rem) rotate(${rotateDeg}deg)`;
 		let zdex = -10
 		for(let i=0;i<deckWeb.childElementCount;i++){
 			deckWeb.childNodes[i].style.zIndex = zdex;

@@ -4,13 +4,13 @@ import {cardWebShown} from "./web_events.js"
 import { mainDeck, playerDecks} from "./main.js";
 import {playCardAni, hitCardAni} from "./animation.js"
 import { renderPlayerDeck } from "./web_render.js";
+import { SE,broadcastSE } from './main.js'
 let imgClockwise=document.querySelector('.clockwise');
+
 //let imgCounterClockwise=document.querySelector('.counter-clockwise')
 const delayAni = ms => new Promise(res => setTimeout(res, ms));
 let playCardTime =1000
 let playCardDuration=200
-
-
 
 //hit card from deck
 export async function hit(main,playerDeck,count=1,isDiscard=false) {
@@ -39,6 +39,7 @@ export async function play(playerDeck,main,index,removeCard=true) {
   
   cardWebShown(card,main.getWeb(1),false);
   playCardAni(playerDeck.getWeb().childNodes[index],main,playCardTime);
+  
   if(removeCard){
     playerDeck.getWeb().childNodes[index].remove()
     renderPlayerDeck(playerDeck.getWeb())
@@ -47,10 +48,10 @@ export async function play(playerDeck,main,index,removeCard=true) {
 }
 
 export function actCheck(card,deck,play=true){
-  console.log(card,deck)
+  //console.log(card,deck)
 	deck.updateStatus();
   if(deck.status=="UNO"){
-    //alert("Warning! "+deck.name+" is UNO");
+    broadcastSE(SE.call)
   }
 	
 	//Check if play action card
@@ -58,38 +59,37 @@ export function actCheck(card,deck,play=true){
 	if(play){
     let symbol = document.createElement("div");
     symbol.classList.add("action");
-    
     switch(card.value){
       case "Skip":
         
-        symbol.style.backgroundImage = "url('./symbols/skip_black.svg')";
+        symbol.style.backgroundImage = "url('./img/symbols/skip_black.svg')";
         symbol.style.backgroundSize = "300%";
         mainDeck.getWeb(1).parentElement.prepend(symbol);
-        
+        broadcastSE(SE.action)
         card.setPenalty(true);
         break;
       case "Reverse":
         
-        symbol.style.backgroundImage = "url('./symbols/reverse_black.svg')";
+        symbol.style.backgroundImage = "url('./img/symbols/reverse_black.svg')";
         symbol.style.backgroundSize = "200%";
         mainDeck.getWeb(1).parentElement.prepend(symbol);
-        
+        broadcastSE(SE.action)
         direction.path = reverseAct(direction);
         break;
       case "Draw Two":
         
-        symbol.style.backgroundImage = "url('./symbols/draw_two_black.svg')";
+        symbol.style.backgroundImage = "url('./img/symbols/draw_two_black.svg')";
         symbol.style.backgroundSize = "190%";
         mainDeck.getWeb(1).parentElement.prepend(symbol);
-        
+        broadcastSE(SE.action)
         card.setPenalty(true);
         break;
       case "Draw Four":
         
-        symbol.style.backgroundImage = "url('./symbols/draw_four_black.svg')";
+        symbol.style.backgroundImage = "url('./img/symbols/draw_four_black.svg')";
         symbol.style.backgroundSize = "190%";
         mainDeck.getWeb(1).parentElement.prepend(symbol);
-        
+        broadcastSE(SE.action)
         card.setPenalty(true);
         break;
       default:
@@ -119,36 +119,39 @@ export async function applyAct(mainDeck,deck){
     
     if(actCard.value==="Skip"){
       
-      symbol.style.backgroundImage = "url('./symbols/skip_white.svg')";
-      symbol.style.width="120px";
-      symbol.style.height="120px";
+      symbol.style.backgroundImage = "url('./img/symbols/skip_white.svg')";
+      symbol.style.width="12rem";
+      symbol.style.height="12rem";
       symbol.style.backgroundSize = "200%";
       deck.getWeb().parentElement.prepend(symbol);
       await delayAni(1000)
       next()
+      mainDeck.getBot().setPenalty(false);
       return true
     }
 		if(actCard.value==="Draw Two"){
-      symbol.style.backgroundImage = "url('./symbols/draw_two_number_white.svg')";
+      symbol.style.backgroundImage = "url('./img/symbols/draw_two_number_white.svg')";
       symbol.style.backgroundSize = "190%";
       deck.getWeb().parentElement.prepend(symbol);
       await delayAni(1000)
-			hit(mainDeck,deck,2);
-      await delayAni(1000)
+			await hit(mainDeck,deck,2);
+      //await delayAni(1000)
 			next()
+      mainDeck.getBot().setPenalty(false);
       return true
 		}
 		if(actCard.value==="Draw Four"){
-      symbol.style.backgroundImage = "url('./symbols/draw_four_number_white.svg')";
+      symbol.style.backgroundImage = "url('./img/symbols/draw_four_number_white.svg')";
       symbol.style.backgroundSize = "190%";
       deck.getWeb().parentElement.prepend(symbol);
       await delayAni(1000)
-			hit(mainDeck,deck,4);
-      await delayAni(1000)
+			await hit(mainDeck,deck,4);
+      //await delayAni(1000)
 			next()
+      mainDeck.getBot().setPenalty(false);
       return true
 		}
-		mainDeck.getBot().setPenalty(false);
+		//mainDeck.getBot().setPenalty(false);
 	}
 
 	
@@ -234,7 +237,7 @@ export function selectColorActAI(deck){
 	let selectColor=null;
 	let selectIndex = Math.floor(Math.random()*colorList.length);
 	selectColor = colorList[selectIndex];
-	if(selectColor==="Wild"){
+	if(selectColor==="Wild" || selectColor===undefined){
 		let randomColor = ["Red","Blue","Green","Yello"];
 		selectIndex = Math.floor(Math.random()*randomColor.length);
 		selectColor=randomColor[selectIndex];
@@ -275,8 +278,8 @@ export function setWildCard(mainDeck,color){
   
 	let card = mainDeck.getBot();
 	card.setWildColor(color);
-	
-	wildCardWeb.style.backgroundImage = "url('UNO_cards_deck_wild.svg')";
+	delayAni(500)
+	wildCardWeb.style.backgroundImage = "url('./img/cards/UNO_cards_deck_wild.svg')";
 	if(card.value=="Wild"){
 		wildCardWeb.style.backgroundPosition = Wild_Color_POSITION[color].posWild;
 	}else if(card.value=="Draw Four"){

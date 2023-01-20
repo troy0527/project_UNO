@@ -4,28 +4,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
-  <script defer src="main.js" type="module"></script>
+  <link rel="icon" type="image/x-icon" href="./img/icons-uno.ico">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/slider.css">
+  <script defer src="./src/main.js" type="module"></script>
   <title>UNO</title>
 </head>
 <body>
-  
+  <audio id="bgm" loop src="./audio/a-small-miracle.mp3" type="audio/mpeg"></audio>
   <div class="model-menu">
     <div class="model-content-menu">
       <div class="start">Start</div>
-      <div class="rule">Rule</div>
-      <div class="menu-setting">Setting</div>
-      <div class="back-home">Back Home</div>
     </div>
-    <div class="previous">&#11164</div>
-    <div class="next">&#11166</div>
-    <div class="model-content"></div>
   </div>
 
   <div class="game-board">
     <div class="deck box1">
       <div class="main-deck">
-        <div class="card-back"></div>
+        <div class="card-back top-card"></div>
+        <div class="card-back card-deck"></div>
       </div>
     </div>
     <div class="deck box2">
@@ -33,6 +30,8 @@
       <div class="player player-top"></div>
     </div>
     <div class="box3">
+      <div class="music"></div>
+      <input type="range" min="1" max="100" value="50" class="volume-slider" style="display:none">
       <div class="setting"></div>
     </div>
     <div class="deck box4">
@@ -59,6 +58,7 @@
   <div class="model-setting">
     <div class="model-content-setting">
       <div class="resume">Resume</div>
+      <div class="rule">Rule</div>
       <div class="exit">Back to Menu</div>
     </div>
     <div class="model-content"></div>
